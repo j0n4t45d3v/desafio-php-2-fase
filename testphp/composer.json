@@ -1,0 +1,17 @@
+{
+    "name": "teste_aux/testphp",
+    "autoload": {
+        "psr-4": {
+            "TesteAux\\Testphp\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Jonatas"
+        }
+    ],
+    "require": {
+        "geekcom/phpjasper": "^3.4"
+    }
+    
+}

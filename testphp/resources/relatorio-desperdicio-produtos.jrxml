@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.6.final using JasperReports Library version 6.20.6-5c96b6aa8a39ac1dc6b6bea4b81168e16dd39231  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio-desperdicio-produtos" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="bcd45fcc-e87b-4917-84ba-b50aff6f45be">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="mysqlDB.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="ID_DESPERDICIO" class="java.lang.Integer"/>
+	<queryString>
+		<![CDATA[SELECT
+    dpp.id,
+    dpp.sequencia AS id_desperdicio_produto,
+    dp.nome_pessoa,
+    dp.data_saida,
+    dp.numero_producao,
+    p.codigo_produto,
+    p.descricao,
+    p.unidade,
+    dpp.qtde_saida,
+    gpr.descricao AS grupo
+FROM desperdicio_producao_produto dpp
+INNER JOIN desperdicio_producao dp
+ON dpp.id = dp.id
+INNER JOIN produtos p
+ON dpp.codigo_produto = p.codigo_produto
+INNER JOIN grupo_produtos gpr
+ON p.codigo_grupo = gpr.codigo_grupo
+WHERE dp.id =  $P{ID_DESPERDICIO}
+ORDER BY gpr.codigo_grupo]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao_produto"/>
+	</field>
+	<field name="id_desperdicio_produto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="sequencia"/>
+		<property name="com.jaspersoft.studio.field.label" value="id_desperdicio_produto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao_produto"/>
+	</field>
+	<field name="nome_pessoa" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="nome_pessoa"/>
+		<property name="com.jaspersoft.studio.field.label" value="nome_pessoa"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="data_saida" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="data_saida"/>
+		<property name="com.jaspersoft.studio.field.label" value="data_saida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="numero_producao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="numero_producao"/>
+		<property name="com.jaspersoft.studio.field.label" value="numero_producao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao"/>
+	</field>
+	<field name="codigo_produto" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="codigo_produto"/>
+		<property name="com.jaspersoft.studio.field.label" value="codigo_produto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produtos"/>
+	</field>
+	<field name="descricao" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produtos"/>
+	</field>
+	<field name="unidade" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="unidade"/>
+		<property name="com.jaspersoft.studio.field.label" value="unidade"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="produtos"/>
+	</field>
+	<field name="qtde_saida" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="qtde_saida"/>
+		<property name="com.jaspersoft.studio.field.label" value="qtde_saida"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="desperdicio_producao_produto"/>
+	</field>
+	<field name="grupo" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="descricao"/>
+		<property name="com.jaspersoft.studio.field.label" value="grupo"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="grupo_produtos"/>
+	</field>
+	<variable name="codigo_produto1" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{codigo_produto}]]></variableExpression>
+	</variable>
+	<group name="Categoria" isReprintHeaderOnEachPage="true">
+		<groupExpression><![CDATA[$F{grupo}]]></groupExpression>
+		<groupHeader>
+			<band height="61">
+				<rectangle>
+					<reportElement mode="Opaque" x="1" y="0" width="553" height="25" backcolor="#E0E0E0" uuid="c5cecb09-8541-413e-bfc8-78ff8c0e8f55"/>
+				</rectangle>
+				<textField>
+					<reportElement x="208" y="0" width="141" height="24" uuid="64abcce4-7a57-438e-8e5a-bcccf89acf68">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f527742d-71ce-4a01-baaf-e5388ec47b65"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{grupo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="51" y="27" width="79" height="30" uuid="656f379c-15fd-4915-802a-4a9f2482fed5">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7429373c-36b5-4e7c-9b69-3ee51dbde57d"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[codigo_produto]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="293" y="27" width="65" height="30" uuid="f2142cd2-c339-41e6-a641-16ec8a5c3866">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3651f797-a30f-4ced-bd0b-72c07d05a5d3"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[unidade]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="414" y="28" width="79" height="30" uuid="aa117309-8930-41f2-90d5-861277bc409e">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0941057c-d8cc-4f17-8eae-319b216ee287"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[qtde_saida]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="167" y="27" width="79" height="30" uuid="34fc52bc-0c0d-444d-b558-a3396936dbc3">
+						<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1078aea5-aa4d-406f-ba09-966c99dc6382"/>
+					</reportElement>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[descricao]]></text>
+				</staticText>
+				<line>
+					<reportElement x="-1" y="60" width="555" height="1" uuid="5e39098f-61ef-4c09-b069-0dcdc6ea2e69"/>
+				</line>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="46" splitType="Stretch">
+			<staticText>
+				<reportElement x="216" y="7" width="123" height="31" uuid="ec9225bb-0d69-4b5d-a393-cb271e19c621"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16"/>
+				</textElement>
+				<text><![CDATA[DESAFIO PHP]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="43" splitType="Stretch">
+			<rectangle>
+				<reportElement mode="Opaque" x="1" y="1" width="553" height="40" backcolor="#E0E0E0" uuid="f0025ec5-fcd5-4d97-b87b-c9e18c4b66c2"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="1" width="141" height="40" uuid="7bfa447e-a240-40fb-8494-0cab465fab10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Relatorio de Desperdicio de Produção]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="443" y="0" width="92" height="39" uuid="1d6c1de6-8fa9-42c8-a02c-c2626a6d92ff"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="102" splitType="Stretch">
+			<rectangle>
+				<reportElement x="1" y="17" width="553" height="70" uuid="f49d371a-aba4-4241-824f-a17760b42a90"/>
+			</rectangle>
+			<line>
+				<reportElement x="1" y="52" width="553" height="1" uuid="c0b9ec6e-cb08-4ac0-b78d-3287f1a81bf1"/>
+			</line>
+			<staticText>
+				<reportElement x="26" y="15" width="113" height="38" uuid="ce8d2b99-5977-4799-8b0a-12ffb996dbfa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="500da20c-9943-4679-aebe-daed9767808d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[id_desperdicio_produto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="176" y="16" width="79" height="37" uuid="b799888a-f846-405b-8667-31c42cf31bc3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8026655b-1aba-482f-a05f-100f6316ade0"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[data_saida]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="26" y="53" width="113" height="34" uuid="37bc09ca-14c8-4f2b-bd6f-13df88b95a7b">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="500da20c-9943-4679-aebe-daed9767808d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{id_desperdicio_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="176" y="53" width="79" height="34" uuid="7d16a63a-a301-4787-8686-97613a51d3fa">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8026655b-1aba-482f-a05f-100f6316ade0"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{data_saida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="294" y="53" width="78" height="34" uuid="e2387e78-b8dd-4490-8910-a7b798fe27f7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome_pessoa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="294" y="17" width="79" height="36" uuid="b87d20c2-8656-433f-8608-143448783cc5">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8026655b-1aba-482f-a05f-100f6316ade0"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[nome_pessoa]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="423" y="53" width="100" height="34" uuid="00948d7d-2eab-467a-a1d2-fe64ee974d08"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numero_producao}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="16" width="106" height="37" uuid="4f5015a0-cc46-47d2-9ca7-c88e7b04821f">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8026655b-1aba-482f-a05f-100f6316ade0"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[numero_produção]]></text>
+			</staticText>
+			<line>
+				<reportElement x="157" y="17" width="1" height="70" uuid="99356d13-c16e-4c7a-ab0a-a28f06c48e50"/>
+			</line>
+			<line>
+				<reportElement x="271" y="17" width="1" height="70" uuid="ff9e0a14-0fb0-45b0-827b-97b7fe441699"/>
+			</line>
+			<line>
+				<reportElement x="396" y="17" width="1" height="70" uuid="d80024c4-cd2c-420a-9857-8af9c6a256bb"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="39" splitType="Stretch">
+			<textField>
+				<reportElement x="45" y="4" width="91" height="30" uuid="d026213b-c5bf-48a7-a55d-ec6f094c7d31">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7429373c-36b5-4e7c-9b69-3ee51dbde57d"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigo_produto}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="167" y="4" width="79" height="30" uuid="4df9fd1f-4c08-4574-b4df-5c500dda4ee0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="1078aea5-aa4d-406f-ba09-966c99dc6382"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="278" y="4" width="95" height="30" uuid="36ad9821-face-4973-bfe2-24b7718e84a2">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3651f797-a30f-4ced-bd0b-72c07d05a5d3"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{unidade}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="405" y="4" width="97" height="30" uuid="cc4f6e0d-c82a-4976-ab22-a3afa2b30fd8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="0941057c-d8cc-4f17-8eae-319b216ee287"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qtde_saida}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="33" splitType="Stretch">
+			<textField>
+				<reportElement x="227" y="0" width="100" height="33" uuid="d3e62836-bcc0-4273-9428-579c74ba54de"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["página "+$V{PAGE_NUMBER} + " de " + $V{PAGE_COUNT}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="27" splitType="Stretch">
+			<textField>
+				<reportElement x="408" y="0" width="132" height="26" uuid="28bf9d0d-ba99-4304-9724-28713077bb88"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Total de desperdicio: "+ $V{codigo_produto1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="2" y="0" width="555" height="1" uuid="40516b95-b144-48f3-ac4a-70135d588ef8"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>
